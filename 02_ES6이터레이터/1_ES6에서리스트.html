@@ -30,18 +30,28 @@
 
 <script>
  log('Arr -----------')
+ const arr = [1,2,3];
+ let iter1 = arr[Symbol.iterator]();
+ for(const a of arr) log(a);
+
 </script>
 
 ### Set을 통해 알아보기
 
 <script>
  log('Set -----------')
-
+ const set = new Set([1,2,3]);
+ for(const a of set) log(a);
 </script>
 
 ### Map을 통해 알아보기
 
 <script>
  log('Map -----------')
+ const map = new Map([['a',1], ['b',2], ['c', 3]]);
+ for(const a of map) log(a);
+ for(const a of map.keys()) log(a);
+ for(const a of map.values()) log(a);
+ for(const a of map.entries()) log(a);
 </script>
 
