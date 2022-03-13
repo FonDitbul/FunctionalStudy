@@ -4,12 +4,13 @@
 - 제너레이터: 이터레이터이자 이터러블을 생성하는 함수
 
 <script>
-    function *gen() {
+    function* gen() {
         yield 1;
-        if(false) yield 2;
+        if (false) yield 2;
         yield 3;
         return 100;
     }
+
     let iter = gen();
     // iter[Symbol.iterator]
     log(iter.next());
@@ -23,6 +24,39 @@
 # 자바스크립트는 제너레이터를 통해서 어떤값이든 순회할 수 있다.
 
 
+<script>
+    function* infinity(i = 0) {
+        while (true) yield i++;
+    }
+
+    function* limit(l, iter) {
+        for (const a of iter) {
+            yield a;
+            if (a == l) return
+        }
+    }
+
+    function* odds(l) {
+        for (const a of limit(l, infinity(1))) {
+            if (a % 2) yield a;
+        }
+    }
+
+    let iter2 = odds(10);
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+    log(iter2.next())
+
+    for( const a of odds(40)) log(a);
+</script>
+
+# for of, 전개 연산자, 구조 분해, 나머지 연산자
 <script>
 
 </script>
