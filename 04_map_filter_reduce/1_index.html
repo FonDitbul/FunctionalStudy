@@ -16,7 +16,7 @@
     // 함수를 통해서 수집할 값을 가져옴
     const map = (f, iter) => {
         const res = []
-        for(const a of iter) {
+        for (const a of iter) {
             res.push(f(a))
         }
         return res;
@@ -28,7 +28,7 @@
     // }
     // log(names);
 
-    log(map( p => p.name, products));
+    log(map(p => p.name, products));
 
     // const prices = [];
     // for (const p of products) {
@@ -36,6 +36,26 @@
     // }
     // log(prices);
 
-    log(map( p => p.price, products));
+    log(map(p => p.price, products));
+
+</script>
+
+# 이터러블 프로토콜을 따른 map의 다형성
+
+<script>
+    log(map(el => el.nodeName, document.querySelectorAll('*')))
+
+    function* gen() {
+        yield 2;
+        if (false) yield 3;
+        yield 4;
+    }
+
+    log(map(a => a * a, gen()))
+
+    const m = new Map();
+    m.set('a', 10);
+    m.set('b', 20);
+    log(new Map(map(([k, a]) => [k, a * 2], m)))
 
 </script>
