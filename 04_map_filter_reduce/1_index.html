@@ -99,3 +99,43 @@
         yield 5;
     }()))
 </script>
+
+# reduce
+# 값을 축약하는 함수 이터러블 값을 하나, 다른 값으로 축약하는 함수
+
+<script>
+    const nums = [1, 2, 3, 4, 5];
+    let total = 0;
+    for (const n of nums) {
+        total = total + n;
+    }
+    log(total);
+
+    const reduce = (f, acc, iter) => {
+        if (!iter) {
+            iter = acc[Symbol.iterator]();
+            acc = iter.next().value;
+        }
+        for (const a of iter) {
+            acc = f(acc, a);
+        }
+        return acc;
+    }
+
+    const add = (a, b) => a + b;
+
+    // reduce 작동 방법
+    log(add(add(add(add(add(0, 1), 2), 3), 4), 5))
+
+    // 15
+    log(reduce(add, 0, [1, 2, 3, 4, 5]));
+
+    //  acc 가 존재하지 않을때
+    // 첫번쨰 값을 acc 값으로 받아옴
+    log(reduce(add, [1, 2, 3, 4, 5]))
+
+</script>
+
+<script>
+    log(reduce((total_price, product) => total_price + product.price, 0, products));
+</script>
