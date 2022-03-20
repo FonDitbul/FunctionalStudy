@@ -40,9 +40,17 @@
         a => a + 100);
 
     log(f(0, 1))
-
+    console.clear()
 </script>
 
+<script>
+    go(
+        products,
+        product => filter(p => p.price < 20000, product),
+        product => map(p => p.price, product),
+        prices => reduce(add, prices),
+        log);
+</script>
 ## curry
 <script>
 
