@@ -46,12 +46,51 @@
 <script>
     go(
         products,
-        product => filter(p => p.price < 20000, product),
-        product => map(p => p.price, product),
-        prices => reduce(add, prices),
+        product => filter(p => p.price < 20000)(product),
+        product => map(p => p.price)(product),
+        prices => reduce(add)(prices),
         log);
+
+    //curry를 통해 다음과 같이 표현 가능
+    go(
+        products,
+        filter(p => p.price < 20000),
+        map(p => p.price),
+        reduce(add),
+        log);
+
 </script>
 ## curry
 <script>
+    //인자가 없으면 함수를 즉시 실행
+
+    const mult = curry((a, b) => a * b);
+    log(mult(3)(2));
+
+    const mult3 = mult(3);
+    log(mult3(10));
+    log(mult3(5));
+    log(mult3(3))
+</script>
+
+# 함수 조합으로 함수 만들기
+<script>
+    const total_price = pipe(
+        map(p => p.price),
+        reduce(add))
+    const base_total_price = predi => pipe(
+        filter(predi),
+        total_price)
+
+
+    go(
+        products,
+        base_total_price(p => p.price < 20000),
+        log)
+
+    go(
+        products,
+        base_total_price(p => p.price >= 20000),
+        log)
 
 </script>
