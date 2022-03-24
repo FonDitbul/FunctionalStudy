@@ -45,3 +45,17 @@ L안에서 next를 하기 전까지 내부 동작이 실행되지 않음
 
 
 </script>
+
+<script>
+    function test(name, time, f) {
+        console.time(name);
+        while(time--) f();
+        console.timeEnd(name);
+    }
+
+    test('range', 10, () => reduce(add, range(1000000)));
+
+    test('L.range', 10, () => reduce(add, L.range(1000000)));
+
+
+</script>
