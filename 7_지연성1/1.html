@@ -49,7 +49,7 @@ L안에서 next를 하기 전까지 내부 동작이 실행되지 않음
 <script>
     function test(name, time, f) {
         console.time(name);
-        while(time--) f();
+        while (time--) f();
         console.timeEnd(name);
     }
 
@@ -57,5 +57,33 @@ L안에서 next를 하기 전까지 내부 동작이 실행되지 않음
 
     test('L.range', 10, () => reduce(add, L.range(1000000)));
 
+</script>
 
+## take
+<script>
+    const take = curry((l, iter) => {
+        let res = []
+        for (const a of iter) {
+            res.push(a);
+            if (res.length === l) return res;
+        }
+        return res;
+    });
+
+    console.time('');
+    log(take(5, range(100)));
+    go(
+        range(10000),
+        take(5),
+        log
+    )
+    console.timeEnd('');
+    console.time('');
+    log(take(5, L.range(100)));
+    go(
+        L.range(10000),
+        take(5),
+        log
+    )
+    console.timeEnd('');
 </script>
