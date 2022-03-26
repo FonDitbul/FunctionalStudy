@@ -13,7 +13,7 @@
             yield f(a);
         }
     }
-    const it = L.map(a => a + 10, [1, 2, 3])
+    // const it = L.map(a => a + 10, [1, 2, 3])
 
     // log(it.next());
     // log(it.next());
@@ -24,6 +24,17 @@
 ### L.filter
 
 <script>
+    L.filter = function* (f, iter) {
+        for (const a of iter) {
+            if (f(a)) yield a;
+        }
+    }
+    const it = L.filter(a => a % 2, [1, 2, 3, 4])
+
+    log(it.next());
+    log(it.next());
+    log(it.next());
+    log(it.next());
 
 </script>
 
