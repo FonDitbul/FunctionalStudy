@@ -8,11 +8,7 @@
 ### L.map
 
 <script>
-    L.map = function* (f, iter) {
-        for (const a of iter) {
-            yield f(a);
-        }
-    }
+
     // const it = L.map(a => a + 10, [1, 2, 3])
 
     // log(it.next());
@@ -24,17 +20,13 @@
 ### L.filter
 
 <script>
-    L.filter = function* (f, iter) {
-        for (const a of iter) {
-            if (f(a)) yield a;
-        }
-    }
-    const it = L.filter(a => a % 2, [1, 2, 3, 4])
 
-    log(it.next());
-    log(it.next());
-    log(it.next());
-    log(it.next());
+    // const it = L.filter(a => a % 2, [1, 2, 3, 4])
+    //
+    // log(it.next());
+    // log(it.next());
+    // log(it.next());
+    // log(it.next());
 
 </script>
 
@@ -43,3 +35,20 @@
 - 사용하는 데이터가 무엇이든지
 - 사용하는 보조 함수가 순수 함수라면 무엇이든지
 - 아래와 같이 결합한다면 둘 다 결과가 같다.
+
+
+<script>
+    go(range(10),
+        map(n => n + 10),
+        filter(n => n % 2),
+        take(2),
+        log
+    )
+
+    go(L.range(10),
+        L.map(n => n + 10),
+        L.filter(n => n % 2),
+        take(2),
+        log
+    )
+</script>
