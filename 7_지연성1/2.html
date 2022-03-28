@@ -52,3 +52,10 @@
         log
     )
 </script>
+
+# 즉시 평가의 경우
+-- range를 먼저 다 만들고 map, filter, take를 실행함
+
+# L.range, L.map, L.filter, take의 평가 순서
+-- 디버그를 찍게되면 take => filter (iterator) => map(iterator) => range(iterator)로 넘어가게됨.
+-- range 로 만들어진 이터레이터를 통해서 yield를 통해 넘어가게됨
