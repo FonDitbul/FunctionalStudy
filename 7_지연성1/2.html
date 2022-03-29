@@ -59,3 +59,18 @@
 # L.range, L.map, L.filter, take의 평가 순서
 -- 디버그를 찍게되면 take => filter (iterator) => map(iterator) => range(iterator)로 넘어가게됨.
 -- range 로 만들어진 이터레이터를 통해서 yield를 통해 넘어가게됨
+
+
+### map, filter 계열 함수들이 가지는 결합 법칙
+
+ - 사용하는 데이터가 무엇이든지
+ - 사용하는 보조 함수가 순수 함수라면 무엇이든지
+ - 아래와 같이 결합한다면 둘다 결과가 같다.
+
+ [[mapping, mapping, [filtering, filtering], [mapping, mapping]]
+ =
+ [[mapping, filtering, mapping], [mapping, filtering, mapping]]
+
+즉시평가 되는 값을 꺼내든 genator, iterator(지연평가) 의 값을 꺼내든 같은 값을 꺼낼수 있따.
+
+
