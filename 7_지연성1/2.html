@@ -76,7 +76,7 @@
 
 ### reduce
 <script>
-    L.entries = function *(obj) {
+    L.entries = function* (obj) {
         for (const k in obj) yield [k, obj[k]];
     }
     // prototype join 보다 아래와 같은 join이 다형성이 높음.
@@ -91,7 +91,7 @@
     );
     log(queryStr({limit: 10, offset: 10, type: 'notice'}))
 
-    function *a() {
+    function* a() {
         yield 10;
         yield 11;
         yield 12;
@@ -99,6 +99,30 @@
     }
 </script>
 
+### take, find
 <script>
+    const users = [
+        {age: 32},
+        {age: 31},
+        {age: 37},
+        {age: 28},
+        {age: 25},
+        {age: 32},
+        {age: 31},
+        {age: 37},
+    ]
+
+    const find = curry((f, iter) => go(
+        iter,
+        L.filter(f),
+        take(1),
+        ([a]) => a));
+
+    log(find(u => u.age < 30)(users));
+
+    go(users,
+        L.map(u => u.age),
+        find(n => n < 30),
+        log)
 
 </script>
