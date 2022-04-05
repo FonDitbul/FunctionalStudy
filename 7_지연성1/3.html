@@ -39,3 +39,35 @@ L.deepFlat은 깊은 Iterable을 펼쳐줍니다.
 </script>
 
 
+## L.flatMap
+<script>
+    // log([[1,2], [3,4], [5,6,7]].flatMap(a => a));
+    //
+    // log([[1,2], [3,4], [5,6,7]].flatMap(a => a.map(a => a * a)));
+
+    // log(flatten([[1,2], [3,4], [5,6,7]].map(a => a.map(a => a * a))));
+
+    log([[1,2], [3,4], [5,6,7]].map(a => a.map(a => a * a)));
+
+    // 지연평가
+    L.flatMap = curry(pipe(L.map, L.flatten));
+
+    // 즉시 평가
+    const flatMap = curry(pipe(L.map, flatten))
+
+    const itFlatMap = L.flatMap(a => a, [[1,2], [3,4], [5,6,7]]);
+
+    log([...itFlatMap]);
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+    // log(itFlatMap.next())
+
+    log(flatMap(L.range, [1,2,3]));
+
+</script>
+
+
