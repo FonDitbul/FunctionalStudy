@@ -71,3 +71,26 @@ L.deepFlat은 깊은 Iterable을 펼쳐줍니다.
 </script>
 
 
+## 2차원 배열 다루기
+
+<script>
+    const arr = [
+        [1,2],
+        [3,4,5],
+        [6,7,8],
+        [9,10]
+    ];
+    go(arr,
+    L.flatten,
+    L.filter(a => a % 2),
+    take(3),
+    log);
+
+    go(arr,
+        L.flatten,
+        L.filter(a => a % 2),
+        L.map(a => a * a),
+        take(3),
+        reduce(add),
+        log);
+</script>
