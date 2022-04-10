@@ -44,6 +44,34 @@
 
 ## Composition
 
-<script>
+어떠한 값이 들어올지 모르는 경우,
+함수 합성을 안전하게 하는 방법 => 모나드
+
+<script type="module">
+    // f . g
+    // f(g(x));
+
+    const g = a => a + 1;
+    const f = a => a * a;
+
+    log(f(g(1)));
+
+    [1].map(g).map(f).forEach(r => log(r));
+    [].map(g).map(f).forEach(r => log(r));
+
+    Array.of(1).map(g).map(f).forEach(r => log(r));
+
+    Promise.resolve(2).then(g).then(f).then(r => log(r));
+    new Promise(resolve =>
+        setTimeout(() => resolve(2), 100)
+    ).then(g).then(f).then(r => log(r));
+
 
 </script>
+
+## Kleisli Composition
+<script type="module">
+
+
+</script>
+
