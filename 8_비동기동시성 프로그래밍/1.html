@@ -56,21 +56,50 @@
 
     log(f(g(1)));
 
-    [1].map(g).map(f).forEach(r => log(r));
-    [].map(g).map(f).forEach(r => log(r));
+    [1].map(g).map(f)/*.forEach(r => log(r));*/
+    // [].map(g).map(f)/*.forEach(r => log(r));*/
 
-    Array.of(1).map(g).map(f).forEach(r => log(r));
+    Array.of(1).map(g).map(f)/* .forEach(r => log(r));*/
 
-    Promise.resolve(2).then(g).then(f).then(r => log(r));
+    Promise.resolve(2).then(g).then(f)/*.then(r => log(r));*/
     new Promise(resolve =>
         setTimeout(() => resolve(2), 100)
-    ).then(g).then(f).then(r => log(r));
+    ).then(g).then(f)/* .then(r => log(r));*/
 
 
 </script>
 
 ## Kleisli Composition
+
+들어오는 인자가 잘못된 인자여서 함수의 에러
+정확한 인자여도 외부 요인에 의한 에러
+이러한 현상을 해결하기 위한 방법
+
 <script type="module">
+    // f . g
+    // f(g(x)) = f(g(x))
+    // 에러가 날경우 하단의 코드처럼 같은 에러를 반환하도록 하는 것 Kleisli Composition
+    // x 든 g 든 에러가 발생했을때
+    // f(g(x)) = g(x)
+
+    const users = [
+        {id: 1, name: 'aa'},
+        {id: 2, name: 'bb'},
+        {id: 3, name: 'cc'},
+    ]
+
+    const getUserById = id =>
+        find(u => u.id == id, users) || Promise.reject('없어요!')
+
+    const f = ({name}) => name;
+    const g = getUserById;
+
+
+    // const fg = id => f(g(id));
+
+    const fg = id => Promise.resolve(id).then(g).then(f);
+
+    fg(2).then(log);
 
 
 </script>
