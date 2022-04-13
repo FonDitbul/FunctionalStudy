@@ -1,0 +1,13 @@
+<script src="../lib/fx.js"></script>
+
+## promise.then의 중요한 규칙
+
+then 안에 있는 변수는 반드시 값이 온다는 규칙을 가지고 사용할 것
+
+<script>
+    Promise.resolve(Promise.resolve(Promise.resolve(1))).then(log);
+
+    new Promise(resolve => resolve(new Promise(resolve => resolve(1)))).then(log);
+
+
+</script>
