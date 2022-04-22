@@ -1,0 +1,26 @@
+<script src="../lib/fx.js"></script>
+
+## 지연된 함수를 병렬적으로 평가하기 - C.reduce, C.take
+
+<script>
+    const C = {}
+    // 그냥 reduce를 사용하게 되면 동기적으로 실행됨
+    // 동시에 실행됨 (Concurruncy)
+    C.reduce = curry((f, acc, iter) => iter ? reduce(f, acc, [...iter]) : reduce(f, [...acc]))
+
+    const delay500 = a => new Promise(resolve =>
+    setTimeout(()=>resolve(a), 500));
+
+    go([1,2,3,4,5],
+    L.map(a=> delay500(a * a)),
+    L.filter(a => a % 2),
+    C.reduce(add),
+    log);
+
+</script>
+
+## 즉시 병렬적으로 평가하기 - C.map, C.filter
+
+<script>
+
+</script>
