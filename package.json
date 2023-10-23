@@ -1,7 +1,7 @@
 {
-  "name": "refactor_2",
+  "name": "myPrivateStudy",
   "version": "1.0.0",
-  "description": "마틴 파울러 지음",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,30 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^3.0.3"
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@types/jest": "^29.5.7",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "ts-jest": "^29.1.1"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "testRegex": ".*\\.spec\\.js$",
+    "transform": {
+      "^.+\\.(t|j)s$": "babel-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/"
+    ],
+    "testEnvironment": "node"
   }
 }
