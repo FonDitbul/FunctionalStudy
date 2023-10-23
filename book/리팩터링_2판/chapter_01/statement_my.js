@@ -1,23 +1,29 @@
 export function statement_my(invoice, plays) {
-    let totalAmount = 0;
-    let volumeCredits = 0;
     let result = `청구내역 (고객명: ${invoice.customer})\n`;
 
+    // 가격을 계산한다.
+    let totalAmount = 0;
     for (let perf of invoice.performances) {
         const play = plays[perf.playID];
-        let thisAmount = 0;
-
-        thisAmount = calculateAmount(play.type, thisAmount, perf.audience);
-
-        volumeCredits += stackVolumeCredits(perf.audience, play.type)
-
-        // 청구 내역을 출력한다.
-        result += billingDetail(play.name, thisAmount, perf.audience)
-        totalAmount += thisAmount;
+        totalAmount += calculateAmount(play.type, perf.audience);
     }
+
+    // 포인트를 적립한다.
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+        const play = plays[perf.playID];
+        volumeCredits += stackVolumeCredits(perf.audience, play.type)
+    }
+
+    // 청구 내역을 출력한다.
+    for (let perf of invoice.performances) {
+        const play = plays[perf.playID];
+        const thisAmount = calculateAmount(play.type, perf.audience);
+        result += billingDetail(play.name, thisAmount, perf.audience)
+    }
+
     result += `총액 ${totalAmount / 100}\n`;
     result += `적립 포인트 ${volumeCredits}점\n`;
-
     return result;
 }
 
@@ -37,7 +43,8 @@ function stackVolumeCredits (perfAudience, playType) {
     return volumeCredit
 }
 
-function calculateAmount(playType, thisAmount, perfAudience) {
+function calculateAmount(playType,  perfAudience) {
+    let thisAmount = 0;
     switch (playType) {
         case 'tragedy':
             thisAmount = 40_000;
