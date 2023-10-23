@@ -9,22 +9,32 @@ export function statement_my(invoice, plays) {
 
         thisAmount = calculateAmount(play, thisAmount, perf);
 
-        // 포인트를 적립한다.
-        volumeCredits += Math.max(perf.audience - 30, 0);
-
-        // 희극 관객 5명마다 추가 포인트를 제공한다.
-        if ('comedy' === play.type) {
-            volumeCredits += Math.floor(perf.audience / 5);
-        }
+        volumeCredits += stackVolumeCredits(perf, play)
 
         // 청구 내역을 출력한다.
-        result += `${play.name}: ${thisAmount / 100} ${perf.audience}석\n`;
+        result += billingDetail(play.name, thisAmount, perf.audience)
         totalAmount += thisAmount;
     }
     result += `총액 ${totalAmount / 100}\n`;
     result += `적립 포인트 ${volumeCredits}점\n`;
 
     return result;
+}
+
+function billingDetail(playName, amount, audience) {
+    return `${playName}: ${amount / 100} ${audience}석\n`
+}
+
+function stackVolumeCredits (perf, play) {
+    // 포인트를 적립한다.
+    let volumeCredit = 0
+    volumeCredit += Math.max(perf.audience - 30, 0);
+
+    // 희극 관객 5명마다 추가 포인트를 제공한다.
+    if ('comedy' === play.type) {
+        volumeCredit += Math.floor(perf.audience / 5);
+    }
+    return volumeCredit
 }
 
 function calculateAmount(play, thisAmount, perf) {
