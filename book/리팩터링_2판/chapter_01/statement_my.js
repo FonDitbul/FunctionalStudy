@@ -1,3 +1,5 @@
+import { Calculator } from './Calculator';
+
 export function statement_my(invoices, plays) {
   let result = `청구내역 (고객명: ${invoices.customer})\n`;
 
@@ -50,6 +52,7 @@ function stackVolumeCredits(perf) {
   volumeCredit += Math.max(perf.audience - 30, 0);
 
   // 희극 관객 5명마다 추가 포인트를 제공한다.
+  // TODo 변경
   if ('comedy' === perf.type) {
     volumeCredit += Math.floor(perf.audience / 5);
   }
@@ -57,35 +60,16 @@ function stackVolumeCredits(perf) {
 }
 
 function calculateAmount(plays, perf) {
-  let thisAmount = 0;
-  const play = getPlay(plays, perf)
-  switch (play.type) {
-    case 'tragedy':
-      thisAmount = 40_000;
+  const play = getPlay(plays, perf);
+  const calculator = new Calculator(perf, play);
 
-      if (perf.audience > 30) {
-        thisAmount += 1_000 * (perf.audience - 30);
-      }
-      break;
-    case 'comedy':
-      thisAmount = 30_000;
-
-      if (perf.audience > 20) {
-        thisAmount += 10_000 + 500 * (perf.audience - 20);
-      }
-      thisAmount += 300 * perf.audience;
-      break;
-
-    default:
-      throw new Error(`알 수 없는 장르: ${play.type}`);
-  }
-  return thisAmount;
+  return calculator.amount;
 }
 
 function sumTotalAmount(performances) {
-  return performances.reduce((prev, cur) => prev + cur.amount, 0)
+  return performances.reduce((prev, cur) => prev + cur.amount, 0);
 }
 
-function sumVolumeCredits (performances) {
-  return performances.reduce((prev, cur) => prev + stackVolumeCredits(cur), 0)
+function sumVolumeCredits(performances) {
+  return performances.reduce((prev, cur) => prev + stackVolumeCredits(cur), 0);
 }
