@@ -11,16 +11,10 @@ export function statement_my(invoices, plays) {
   }));
 
   // 가격을 계산한다.
-  let totalAmount = 0;
-  for (let perf of resultData.performances) {
-    totalAmount += calculateAmount(plays, perf);
-  }
+  const totalAmount = sumTotalAmount(resultData.performances);
 
   // 포인트를 적립한다.
-  let volumeCredits = 0;
-  for (let perf of resultData.performances) {
-    volumeCredits += stackVolumeCredits(perf);
-  }
+  const volumeCredits = sumVolumeCredits(resultData.performances);
 
   // 청구 내역을 출력한다.
   for (let perf of resultData.performances) {
@@ -86,4 +80,12 @@ function calculateAmount(plays, perf) {
       throw new Error(`알 수 없는 장르: ${play.type}`);
   }
   return thisAmount;
+}
+
+function sumTotalAmount(performances) {
+  return performances.reduce((prev, cur) => prev + cur.amount, 0)
+}
+
+function sumVolumeCredits (performances) {
+  return performances.reduce((prev, cur) => prev + stackVolumeCredits(cur), 0)
 }
