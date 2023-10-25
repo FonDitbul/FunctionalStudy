@@ -71,5 +71,5 @@ function sumTotalAmount(performances) {
 }
 
 function sumVolumeCredits(performances) {
-  return performances.reduce((prev, cur) => prev + stackVolumeCredits(cur), 0);
+  return performances.reduce((prev, cur) => prev + new Calculator(cur).volumeCredits, 0);
 }

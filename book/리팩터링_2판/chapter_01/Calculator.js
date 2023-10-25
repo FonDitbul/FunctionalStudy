@@ -7,7 +7,6 @@ export class Calculator {
   get amount() {
     let thisAmount = 0;
     switch (this.play.type) {
-      // TODO 변경
       case 'tragedy':
         thisAmount = 40_000;
 
@@ -28,5 +27,17 @@ export class Calculator {
         throw new Error(`알 수 없는 장르: ${this.play.type}`);
     }
     return thisAmount;
+  }
+
+  get volumeCredits() {
+      // 포인트를 적립한다.
+      let volumeCredit = 0;
+      volumeCredit += Math.max(this.performance.audience - 30, 0);
+
+      // 희극 관객 5명마다 추가 포인트를 제공한다.
+      if ('comedy' === this.performance.type) {
+          volumeCredit += Math.floor(this.performance.audience / 5);
+      }
+      return volumeCredit;
   }
 }
