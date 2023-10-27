@@ -14,9 +14,13 @@ export class Calculator {
     this.performance = performance;
   }
 
-  get amount() {}
+  get amount() {
+    throw new Error('서브 클래스에서 처리하도록 설계')
+  }
 
-  get volumeCredits() {}
+  get volumeCredits() {
+    return Math.max(this.performance.audience - 30, 0)
+  }
 }
 
 export class TragedyCalculator extends Calculator {
@@ -28,9 +32,6 @@ export class TragedyCalculator extends Calculator {
     }
 
     return thisAmount;
-  }
-  get volumeCredits() {
-    return Math.max(this.performance.audience - 30, 0);
   }
 }
 
@@ -47,6 +48,6 @@ export class ComedyCalculator extends Calculator {
   }
 
   get volumeCredits() {
-    return Math.max(this.performance.audience - 30, 0) + Math.floor(this.performance.audience / 5);
+    return super.volumeCredits + Math.floor(this.performance.audience / 5);
   }
 }
